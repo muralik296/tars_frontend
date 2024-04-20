@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import {
+  BrowserRouter,
+  Route,
+  Routes
+} from "react-router-dom";
+import { Container } from 'react-bootstrap';
+
+import DocDiveNavbar from './NavBar';
+import Upload from './Upload';
+import Search from './Search';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <DocDiveNavbar />
+      <Container>
+        <Routes>
+          {/* Upload route */}
+          {/* Only one route uplaod and search */}
+          <Route path='/upload' element={<Upload />} />
+          <Route path='/' element={<Search />} />
+        </Routes>
+      </Container>
+
+    </BrowserRouter >
+
   );
 }
 
