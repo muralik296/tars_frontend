@@ -1,6 +1,6 @@
 import { Navbar, Container, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import Logo from '../assets/piedpiper.png';
+import Logo from '../assets/tars-logo.png';
 
 export default function DocDiveNavbar() {
     return (
@@ -9,7 +9,7 @@ export default function DocDiveNavbar() {
 
                 <Navbar.Brand>
                     <NavLink to='/' style={{ textDecoration: 'none', color: 'green', fontWeight: '700' }}>
-                        <img src={Logo} height={50}/>
+                        <img title={'TARS'} src={Logo} height={80}/>
                     </NavLink>
                 </Navbar.Brand>
 

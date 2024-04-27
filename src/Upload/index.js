@@ -12,6 +12,15 @@ import { Spinner } from 'react-bootstrap';
 
 import axios from 'axios';
 
+
+// helper function
+function addHttpsIfNeeded(url) {
+    if (!(url.startsWith("https://") || url.startsWith("http://"))) {
+        return "https://" + url;
+    }
+    return url;
+}
+
 export default function Upload() {
 
     const [isError, setError] = useState(false); // error state
@@ -25,31 +34,20 @@ export default function Upload() {
     const [urlList, setUrlList] = useState([]);
     const [inputUrl, setInputUrl] = useState('');
 
-    function handleUrlChange(e) {
-        console.log(e.target.value);
-        setInputUrl(e.target.value);
-    }
+    const handleUrlChange = (e) => setInputUrl(e.target.value);
 
     function handleUrlAdd(e) {
         //TO DO: We need to check if valid url or not using validator
-
-        setUrlList((prev) => [...prev, { urlId: uuidv4(), url: inputUrl }])
+        setUrlList((prev) => [...prev, { urlId: uuidv4(), url: addHttpsIfNeeded(inputUrl) }])
         setInputUrl('')
-        console.log(urlList);
     }
 
-
-
-    function handleFileUploadButton() {
-        document.getElementById('fileInput').click();
-    }
+    const handleFileUploadButton = () => document.getElementById('fileInput').click();
 
     function handleFileInput(event) {
         // handle only supported file types
         for (let file of event.target.files) {
-            // console.log(file)
             const ext = file.type.split('/')[1];
-            console.log(ext);
             if (!(['pdf', 'plain', 'png', 'jpeg', 'jpg'].includes(ext))) {
                 return alert('Please upload files in the specified format')
             }
@@ -59,6 +57,9 @@ export default function Upload() {
 
     async function handleSubmission(event) {
         try {
+
+            if (files.length == 0) return
+
             // set loading to true
             setLoading(prev => !prev)
 
@@ -124,7 +125,6 @@ export default function Upload() {
             <div key={1}>
                 {
                     Array.from(files).map((file, index) => {
-                        console.log(file);
                         const ext = file.type.split('/')[1];
                         if (ext == 'plain') {
                             return (<div key={index}>

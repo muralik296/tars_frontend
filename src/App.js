@@ -9,6 +9,8 @@ import { Container } from 'react-bootstrap';
 import DocDiveNavbar from './NavBar';
 import Upload from './Upload';
 import Search from './Search';
+import SearchElement from './SearchElement';
+
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           {/* Only one route uplaod and search */}
           <Route path='/upload' element={<Upload />} />
           <Route path='/' element={<Search />} />
+          <Route path='/search/:documentId' element={<SearchElement />} />
         </Routes>
       </Container>
 
