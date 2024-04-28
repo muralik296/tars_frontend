@@ -46,12 +46,12 @@ export default function Upload() {
 
     function handleFileInput(event) {
         // handle only supported file types
-        for (let file of event.target.files) {
-            const ext = file.type.split('/')[1];
-            if (!(['pdf', 'plain', 'png', 'jpeg', 'jpg'].includes(ext))) {
-                return alert('Please upload files in the specified format')
-            }
-        }
+        // for (let file of event.target.files) {
+        //     const ext = file.type.split('/')[1];
+        //     if (!(['pdf', 'plain', 'png', 'jpeg', 'jpg'].includes(ext))) {
+        //         return alert('Please upload files in the specified format')
+        //     }
+        // }
         setFiles(event.target.files);
     }
 

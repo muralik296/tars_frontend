@@ -6,6 +6,7 @@ import { faUpload, faFileLines, faFilePdf, faFileImage, faGlobe } from '@fortawe
 import { NavLink } from "react-router-dom";
 
 export default function SearchResults(props) {
+    console.log('rendered')
     const { query } = props;
 
     const [isLoading, setLoading] = useState(true);
@@ -17,16 +18,22 @@ export default function SearchResults(props) {
 
     useEffect(() => {
         const fetchSearchResults = async () => {
-            const res = await axios.post(`${process.env.REACT_APP_BACKEND}/search/`, { query })
-            const data = res?.data?.data
-            // console.log(data,'from call')
-            setData(data);
-            setLoading(false);
+            try {
+                const res = await axios.post(`${process.env.REACT_APP_BACKEND}/search/`, { query })
+                const data = res?.data?.data
+                setData(data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err)
+                setError(true)
+            }
         }
         fetchSearchResults()
     }, [query])
 
     if (isLoading) return 'Loading.. '
+    if (isError) return 'An Error has occured please try again later'
     function renderIcon(fileType) {
         if (fileType == 'image') {
             return <FontAwesomeIcon title={'image'} icon={faFileImage} />

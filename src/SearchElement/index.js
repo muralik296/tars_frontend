@@ -23,7 +23,8 @@ export default function SearchElement(props) {
         try {
             const fetchDataById = async () => {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND}/search/getDocument/${documentId}`);
-                setData(response.data)
+                console.log(response)
+                setData(response?.data?.data)
                 setLoading(false)
                 console.log(data)
             }
@@ -39,7 +40,7 @@ export default function SearchElement(props) {
     if (isError) return 'Oops! Looks like an error occured, please try again later.'
 
     function renderSearchResultBasedOnType(res) {
-        const element = res.data[0]._source;
+        const element = data
         if (element.type == 'pdf') {
             return (
                 <PdfComp element={element} />
