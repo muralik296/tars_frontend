@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
-import { pdfjs } from 'react-pdf';
 import PdfComp from "./PdfComponent";
 import ImageComp from "./ImageComponent";
 import TextComp from "./TextComponent";
-
-
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.js',
-    import.meta.url,
-).toString();
+import HtmlComp from "./HtmlComponent";
+import WordComp from "./WordComponent";
+// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+//     'pdfjs-dist/build/pdf.worker.min.js',
+//     import.meta.url,
+// ).toString();
 
 export default function SearchElement(props) {
 
@@ -54,6 +53,16 @@ export default function SearchElement(props) {
         else if (element.type == 'plain') {
             return (
                 <TextComp element={element} />
+            )
+        }
+        else if (element.type == 'html') {
+            return (
+                <HtmlComp element={element} />
+            )
+        }
+        else if (element.type.includes('wordprocessingml')){
+            return (
+                <WordComp element={element} />
             )
         }
     }

@@ -46,12 +46,13 @@ export default function Upload() {
 
     function handleFileInput(event) {
         // handle only supported file types
-        // for (let file of event.target.files) {
-        //     const ext = file.type.split('/')[1];
-        //     if (!(['pdf', 'plain', 'png', 'jpeg', 'jpg'].includes(ext))) {
-        //         return alert('Please upload files in the specified format')
-        //     }
-        // }
+        for (let file of event.target.files) {
+            const ext = file.type.split('/')[1];
+            console.log(ext)
+            if (!(['pdf', 'plain', 'png', 'jpeg', 'jpg','docx','htm','html','vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(ext))) {
+                return alert('Please upload files in the specified format')
+            }
+        }
         setFiles(event.target.files);
     }
 
@@ -98,7 +99,7 @@ export default function Upload() {
             <>
                 <div style={{ marginBottom: '10px' }}>
                     <i>
-                        Supported file types include: .pdf, .jpeg , .png , .txt , .jpg
+                        Supported file types include: .txt,.jpeg,.jpg,.png,.html,.htm,.docx,.pdf
                     </i>
                 </div>
                 <input id="fileInput" type='file' onChange={handleFileInput} multiple hidden />

@@ -1,71 +1,47 @@
 import { useState } from 'react';
-import { Document, Page } from 'react-pdf';
-import { Button } from 'react-bootstrap';
-import styles from './canvas.module.css'
+import { Worker } from '@react-pdf-viewer/core';
+
+// Import the main component
+import { Viewer } from '@react-pdf-viewer/core';
+
+// Import the styles
+import '@react-pdf-viewer/core/lib/styles/index.css';
+
+// default layout plugin
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+
+// Import styles
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+
+// import { ScrollMode } from '@react-pdf-viewer/core';
+
+// import { scrollModePlugin } from '@react-pdf-viewer/scroll-mode';
+
+// import styles from './canvas.module.css'
 
 
 export default function PdfComp(props) {
-    console.log(props);
+    // console.log(props);
+    const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    // scroll mode
+    // const scrollModePluginInstance = scrollModePlugin();
+
     const { element } = props;
     console.log(element)
     const pdfUrl = `${process.env.REACT_APP_BACKEND}${element.file_loc}`
     console.log(pdfUrl)
 
-    const [numPages, setNumPages] = useState();
-    const [pageNumber, setPageNumber] = useState(1);
-    const [renderNavButtons, setRenderNavButtons] = useState(false);
-
-    const onSuccess = (sample) => {
-        setPageNumber(1);
-        setRenderNavButtons(true);
-    }
-
-    const changePage = (offset) => {
-        setPageNumber(prevPageNumber => prevPageNumber + offset);
-    }
-    const previousPage = () => { changePage(-1); }
-    const nextPage = () => { changePage(+1); }
     return (
-        <>
-            <div>
-                <Document
-                    file={pdfUrl}
-                    onLoadSuccess={({ numPages }) => {
-                        setNumPages(numPages);
-                        setRenderNavButtons(true);
-                        onSuccess();
-                    }}
-                    hideNavbar={true}
-                    scale={0.2}
-                >
-                    <Page
-                        size="A4"
-                        pageNumber={pageNumber}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                        scale={1.5}
-                    />
-                </Document>
-            </div>
-
-            {renderNavButtons &&
-                <div className="buttonc">
-                    <Button
-                        disabled={pageNumber <= 1}
-                        onClick={previousPage}
-                        variant='primary'
-                    >
-                        Previous Page
-                    </Button>
-                    {"  "}
-                    <Button
-                        disabled={pageNumber === numPages}
-                        onClick={nextPage}
-                        variant='primary'
-                    >
-                        Next Page
-                    </Button>
-                </div>}
-        </>
+        <div style={{ marginTop: '40px' }}>
+            <h4>{element.file_name}</h4>
+            <p>
+                Created At: {new Date(element.created_at).toDateString()}
+            </p>
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                <div style={{height: '720px',marginBottom: '30px'}}>
+                    <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPluginInstance]} />
+                </div>
+            </Worker>
+        </div>
     );
 }
