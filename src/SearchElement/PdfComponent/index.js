@@ -4,6 +4,10 @@ import { Worker } from '@react-pdf-viewer/core';
 // Import the main component
 import { Viewer } from '@react-pdf-viewer/core';
 
+// Search components
+import { FlagKeyword, NextIcon, PreviousIcon, searchPlugin } from '@react-pdf-viewer/search';
+
+
 // Import the styles
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
@@ -23,6 +27,25 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 export default function PdfComp(props) {
     // console.log(props);
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    const searchPluginInstance = searchPlugin({
+        keyword: ['machine', 'learning','machine learning'],
+        onHighlightKeyword: (props) => {
+            console.log(props.keyword)
+            if (props.keyword.source === 'machine') {
+                props.highlightEle.style.outline = '2px dashed blue';
+                props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
+            } else {
+                props.highlightEle.style.outline = '2px dashed green';
+                props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
+            }
+
+        }
+        // keyword: [{
+        //     keyword: 'machine',
+        //     wholeWords: true
+        // }]
+    });
+
     // scroll mode
     // const scrollModePluginInstance = scrollModePlugin();
 
@@ -38,8 +61,8 @@ export default function PdfComp(props) {
                 Created At: {new Date(element.created_at).toDateString()}
             </p>
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-                <div style={{height: '720px',marginBottom: '30px'}}>
-                    <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPluginInstance]} />
+                <div style={{ height: '720px', marginBottom: '30px' }}>
+                    <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPluginInstance, searchPluginInstance]} />
                 </div>
             </Worker>
         </div>
