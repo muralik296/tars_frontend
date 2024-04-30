@@ -6,10 +6,7 @@ import ImageComp from "./ImageComponent";
 import TextComp from "./TextComponent";
 import HtmlComp from "./HtmlComponent";
 import WordComp from "./WordComponent";
-// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-//     'pdfjs-dist/build/pdf.worker.min.js',
-//     import.meta.url,
-// ).toString();
+import UrlComp from "./UrlComponent";
 
 export default function SearchElement(props) {
 
@@ -60,15 +57,22 @@ export default function SearchElement(props) {
                 <HtmlComp element={element} />
             )
         }
-        else if (element.type.includes('wordprocessingml')){
+        else if (element.type.includes('wordprocessingml')) {
             return (
                 <WordComp element={element} />
+            )
+        }
+        else if (element.type.includes('url')) {
+            return (
+                <UrlComp element={element} />
             )
         }
     }
 
     return (
         <>
+            <a href={`${process.env.REACT_APP_BACKEND}${data.file_loc}`} target="_blank">File Link</a>
+
             {renderSearchResultBasedOnType(data)}
         </>
     )

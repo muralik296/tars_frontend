@@ -63,7 +63,7 @@ export default function SearchResults(props) {
                     return <Col md={6} lg={12} key={i}>
                         <Card className="my-3">
                             <Card.Body>
-                                <NavLink to={`/search/${element._source.documentid}`}>
+                                <NavLink to={`/search/${element._source.documentid}?query=${query}`}>
                                     <Card.Title>
                                         {element?._source?.file_name}
                                         <span style={{ marginLeft: '10px' }}>{renderIcon(element._source.type)}</span>

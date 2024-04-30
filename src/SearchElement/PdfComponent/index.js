@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { searchParams, useSearchParams } from 'react-router-dom';
+
 import { Worker } from '@react-pdf-viewer/core';
 
 // Import the main component
@@ -25,19 +27,22 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 
 export default function PdfComp(props) {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get('query');
+    const list_of_search_words = query ? query.split(',') : null;
     // console.log(props);
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const searchPluginInstance = searchPlugin({
-        keyword: ['machine', 'learning','machine learning'],
+        keyword: list_of_search_words,
         onHighlightKeyword: (props) => {
             console.log(props.keyword)
-            if (props.keyword.source === 'machine') {
-                props.highlightEle.style.outline = '2px dashed blue';
-                props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
-            } else {
-                props.highlightEle.style.outline = '2px dashed green';
-                props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
-            }
+            // if (props.keyword.source === 'machine') {
+            props.highlightEle.style.outline = '2px dashed blue';
+            props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
+            // } else {
+            // props.highlightEle.style.outline = '2px dashed green';
+            // props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
+            // }
 
         }
         // keyword: [{
