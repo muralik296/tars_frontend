@@ -19,10 +19,8 @@ export default function SearchElement(props) {
         try {
             const fetchDataById = async () => {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND}/search/getDocument/${documentId}`);
-                console.log(response)
                 setData(response?.data?.data)
                 setLoading(false)
-                console.log(data)
             }
             fetchDataById()
         } catch (err) {

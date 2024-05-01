@@ -14,11 +14,9 @@ export default function UrlUploader(props) {
     const [isError, setError] = useState(null);
 
     function removeUrlFromList(urlId) {
-        console.log(urlId)
         const newUrlList = urlList.filter((element) => {
             if (element.urlId !== urlId) return element
         });
-        console.log(newUrlList);
         setUrlList(newUrlList);
     }
 

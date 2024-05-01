@@ -48,7 +48,6 @@ export default function Upload() {
         // handle only supported file types
         for (let file of event.target.files) {
             const ext = file.type.split('/')[1];
-            console.log(ext)
             if (!(['pdf', 'plain', 'png', 'jpeg', 'jpg','docx','htm','html','vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(ext))) {
                 return alert('Please upload files in the specified format')
             }
@@ -68,12 +67,10 @@ export default function Upload() {
                 return alert('Please upload files to continue');
             }
             const payLoad = new FormData();
-            console.log(payLoad, '= payload');
             for (let file of files) {
                 console.log(file);
                 payLoad.append('files', file)
             }
-            console.log(payLoad, '=payload')
             const response = await axios.post(`${process.env.REACT_APP_BACKEND}/upload/`, payLoad, {
                 'headers': {
                     "Content-Type": 'multipart/form-data'

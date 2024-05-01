@@ -7,12 +7,10 @@ export default function TextComp(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const query = searchParams.get('query');
     const list_of_search_words = query ? query.split(',') : null;
-    console.log(list_of_search_words, '= list of search words')
     const { element } = props;
 
 
     function renderAndHighlightWords(text) {
-        console.log(list_of_search_words)
         if (!list_of_search_words || list_of_search_words.length === 0) {
             return <p>{text}</p>;
         } else {

@@ -34,7 +34,6 @@ export default function PdfComp(props) {
     const colors = ['red', 'green', 'blue', 'yellow'];
 
     function highlightKeywords(props) {
-        console.log(props.keyword.source)
         for (let i = 0; i < list_of_search_words.length; i++){
             if (props.keyword.source == list_of_search_words[i]){
                 props.highlightEle.style.outline = `2px dashed ${colors[i]}`;
@@ -61,9 +60,7 @@ export default function PdfComp(props) {
     });
 
     const { element } = props;
-    console.log(element)
     const pdfUrl = `${process.env.REACT_APP_BACKEND}${element.file_loc}`
-    console.log(pdfUrl)
 
     return (
         <div style={{ marginTop: '40px' }}>
