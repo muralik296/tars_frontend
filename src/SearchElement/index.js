@@ -26,6 +26,7 @@ export default function SearchElement(props) {
             }
             fetchDataById()
         } catch (err) {
+            setLoading(false)
             setError(true)
         }
 

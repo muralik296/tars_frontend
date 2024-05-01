@@ -84,6 +84,7 @@ export default function Upload() {
             setFiles([])
         } catch (e) {
             console.log(e);
+            setLoading(prev => !prev)
             setError(prev => !prev)
             setTimeout(() => {
                 setError(prev => !prev);

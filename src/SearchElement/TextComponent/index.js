@@ -1,6 +1,7 @@
 import { Card } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import styles from './styles.module.css'
+import KeyWords from '../KeyWords';
 
 export default function TextComp(props) {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -24,13 +25,20 @@ export default function TextComp(props) {
             const parts = text.split(regex);
 
             return (
-                <p>
-                    {parts.map((part, index) =>
-                        regex.test(part) ?
-                            <span key={index} className={styles.highlight_word}>{part}</span> :
-                            part
-                    )}
-                </p>
+                <>
+                    <KeyWords element={element} />
+
+                    <p>
+                        <br />
+                        <h3>Content: </h3>
+                        {parts.map((part, index) =>
+                            regex.test(part) ?
+                                <span key={index} className={styles.highlight_word}>{part}</span> :
+                                part
+                        )}
+                    </p>
+                </>
+
             )
         }
     }

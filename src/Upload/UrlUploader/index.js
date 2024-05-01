@@ -48,12 +48,16 @@ export default function UrlUploader(props) {
             setLoading(false)
             setUrlList([])
         } catch (err) {
-            setError(true)
             console.log(err)
+            setLoading(false)
+            setError(true)
+            setTimeout(() => {
+                setError(false);
+            }, 2000);
         }
 
     }
-    if (isError){
+    if (isError) {
         return 'An Error Occured try later'
     }
     if (isLoading) {

@@ -27,6 +27,7 @@ export default function SearchResults(props) {
             }
             catch (err) {
                 console.log(err)
+                setLoading(false)
                 setError(true)
             }
         }

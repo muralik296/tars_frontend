@@ -18,6 +18,7 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 
 // Import styles
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import KeyWords from '../KeyWords';
 
 // import { ScrollMode } from '@react-pdf-viewer/core';
 
@@ -30,29 +31,34 @@ export default function PdfComp(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const query = searchParams.get('query');
     const list_of_search_words = query ? query.split(',') : null;
-    // console.log(props);
+    const colors = ['red', 'green', 'blue', 'yellow'];
+
+    function highlightKeywords(props) {
+        console.log(props.keyword.source)
+        for (let i = 0; i < list_of_search_words.length; i++){
+            if (props.keyword.source == list_of_search_words[i]){
+                props.highlightEle.style.outline = `2px dashed ${colors[i]}`;
+                props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
+            }
+        }
+    }
+
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const searchPluginInstance = searchPlugin({
         keyword: list_of_search_words,
-        onHighlightKeyword: (props) => {
-            console.log(props.keyword)
-            // if (props.keyword.source === 'machine') {
-            props.highlightEle.style.outline = '2px dashed blue';
-            props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
-            // } else {
-            // props.highlightEle.style.outline = '2px dashed green';
-            // props.highlightEle.style.backgroundColor = 'rgba(0, 0, 0, .1)';
-            // }
-
-        }
+        onHighlightKeyword: (props) => highlightKeywords(props),
+        keyword: list_of_search_words.map((word)=>{
+            return {
+                keyword: word,
+                wholeWords: false,
+                matchCase: false
+            }
+        })
         // keyword: [{
         //     keyword: 'machine',
         //     wholeWords: true
         // }]
     });
-
-    // scroll mode
-    // const scrollModePluginInstance = scrollModePlugin();
 
     const { element } = props;
     console.log(element)
@@ -62,6 +68,7 @@ export default function PdfComp(props) {
     return (
         <div style={{ marginTop: '40px' }}>
             <h4>{element.file_name}</h4>
+            <KeyWords element={element} />
             <p>
                 Created At: {new Date(element.created_at).toDateString()}
             </p>
