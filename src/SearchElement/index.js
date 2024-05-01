@@ -70,8 +70,6 @@ export default function SearchElement(props) {
 
     return (
         <>
-            <a href={`${process.env.REACT_APP_BACKEND}${data.file_loc}`} target="_blank">File Link</a>
-
             {renderSearchResultBasedOnType(data)}
         </>
     )

@@ -13,12 +13,16 @@
 // const top10 = items.slice(-10).reverse();
 
 import { Badge } from "react-bootstrap";
+import countPhraseOccurrences from './helper'
+
 
 // helper fn
 function object_with_array_lengths(posting_list) {
     const object = {}
     for (const term in posting_list) {
-        object[term] = (posting_list[term]).length
+        if (term.length > 1) {
+            object[term] = (posting_list[term]).length
+        }
     }
     let items = Object.entries(object);
     items.sort((a, b) => a[1] - b[1]);
@@ -26,8 +30,12 @@ function object_with_array_lengths(posting_list) {
 }
 
 export default function KeyWords(props) {
-    const { element } = props;
+    const { element, listOfSearchWords } = props;
     const posting_list = element.posting_list
+
+    console.log(listOfSearchWords)
+
+    const numberOfOccurrencesOfSearchWords = listOfSearchWords ? listOfSearchWords.map((searchWord) => ({ searchWord, numberOfOccurences: countPhraseOccurrences(posting_list, searchWord) })) : null
 
     const items = object_with_array_lengths(posting_list);
     const lowest_10 = items.slice(0, 10);
@@ -35,6 +43,22 @@ export default function KeyWords(props) {
     return (
         <>
             <div>
+                {
+                    numberOfOccurrencesOfSearchWords ?
+                        (<div>
+                            <h5>
+                                <strong>Occurences of your search query</strong>
+                            </h5>
+                            {numberOfOccurrencesOfSearchWords.map(({ searchWord, numberOfOccurences }) => {
+                                return (
+                                    <p>
+                                        {searchWord}:{numberOfOccurences}
+                                    </p>
+                                )
+                            })}
+                            <hr />
+                        </div>) : null
+                }
                 <h5>Most frequent keywords</h5>
                 {
                     top_10.map(([keyword, count], index) => (
