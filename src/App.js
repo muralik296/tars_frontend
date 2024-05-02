@@ -10,7 +10,7 @@ import DocDiveNavbar from './NavBar';
 import Upload from './Upload';
 import Search from './Search';
 import SearchElement from './SearchElement';
-
+import About from './About';
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
         <Routes>
           {/* Upload route */}
           {/* Only one route uplaod and search */}
+          <Route path='/about' element={<About />} />
           <Route path='/upload' element={<Upload />} />
           <Route path='/' element={<Search />} />
           <Route path='/search/:documentId' element={<SearchElement />} />

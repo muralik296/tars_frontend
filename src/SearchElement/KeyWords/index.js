@@ -62,7 +62,7 @@ export default function KeyWords(props) {
                 <h5>Most frequent keywords</h5>
                 {
                     top_10.map(([keyword, count], index) => (
-                        <Badge key={index} bg="primary" className="m-1" pill>
+                        <Badge key={index} bg="success" className="m-1" pill>
                             {keyword}
                         </Badge>
                     ))
