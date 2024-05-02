@@ -1,6 +1,4 @@
 export default function countPhraseOccurrences(postingList, phrase) {
-    console.log(phrase)
-    console.log(postingList)
     const words = phrase.split(' ');
 
     if (words.length === 1) {

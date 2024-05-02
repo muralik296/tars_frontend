@@ -10,7 +10,6 @@ import { faBackward } from '@fortawesome/free-solid-svg-icons';
 export default function DocDiveNavbar() {
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location, '= current location')
     return (
         <>
             <Navbar bg="dark" expand="lg">
